@@ -63,9 +63,12 @@
 
       const unlockAdminMode = () => {
         if (adminPasswordInput.value === ADMIN_PASSWORD) {
-          document.body.classList.add("admin-mode");
-          closeAdminModal();
-          return;
+  document.body.classList.add("admin-mode");
+
+  adminAccessButton.style.display = "none";
+
+  closeAdminModal();
+  return;
         }
 
         adminError.classList.add("visible");
