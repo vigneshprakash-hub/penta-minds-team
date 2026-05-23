@@ -85,31 +85,42 @@
     });
 
   </script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const adminAccessButton = document.getElementById("admin-access-btn");
+  const adminModal = document.getElementById("admin-modal");
+  const adminLoginButton = document.getElementById("admin-login-btn");
+  const adminCancelButton = document.getElementById("admin-cancel-btn");
+  const adminPasswordInput = document.getElementById("admin-password-input");
+  const adminError = document.getElementById("admin-error");
 
-</div>
+  const ADMIN_PASSWORD = "hello@pentaminds";
 
-<div id="admin-modal" class="admin-modal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="admin-modal-title">
-  <div class="admin-dialog">
-    <h2 id="admin-modal-title">Admin Access</h2>
-    <p>Enter the admin password to manage.</p>
-    <label for="admin-password-input">Password</label>
-    <input id="admin-password-input" type="password" autocomplete="current-password">
-    <p id="admin-error" class="admin-error">Incorrect password.</p>
-    <div class="admin-actions">
-      <button id="admin-cancel-btn" class="admin-cancel-btn" type="button">Cancel</button>
-      <button id="admin-login-btn" class="admin-login-btn" type="button">Unlock</button>
-    </div>
-  </div>
-</div>
+  if (!adminAccessButton) {
+    console.error("Admin button missing");
+    return;
+  }
 
-<button id="admin-access-btn" title="Admin" class="admin-access-btn" aria-label="Admin Access" style="position:fixed;bottom:24px;right:24px;z-index:8999;width:42px;height:42px;border-radius:50%;background:#0D2145;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;">
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-</button>
-<div id="redirect-overlay" class="redirect-overlay" aria-live="polite" role="status">
-  <div class="redirect-inner">
-    <div class="redirect-spinner" aria-hidden="true"></div>
-    <p class="redirect-label" id="redirect-label">Opening portal…</p>
-  </div>
-</div>
+  adminAccessButton.addEventListener("click", () => {
+    adminModal.classList.add("open");
+    adminModal.setAttribute("aria-hidden", "false");
+  });
+
+  adminCancelButton.addEventListener("click", () => {
+    adminModal.classList.remove("open");
+    adminModal.setAttribute("aria-hidden", "true");
+  });
+
+  adminLoginButton.addEventListener("click", () => {
+    if (adminPasswordInput.value === ADMIN_PASSWORD) {
+      document.body.classList.add("admin-mode");
+      adminModal.classList.remove("open");
+      return;
+    }
+
+    adminError.classList.add("visible");
+  });
+});
+</script>
 </body>
 </html>
