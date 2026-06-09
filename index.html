@@ -233,6 +233,91 @@
       }
     }
 
+  /* ═══════════════════════════════════════════════════════════
+     * FOUNDATIONAL TEAM / CORE TEAM / ASSOCIATES SPLIT — CSS
+     * ═══════════════════════════════════════════════════════════ */
+
+    /* Small uppercase label above section titles */
+    .team-section-eyebrow {
+      color: var(--muted);
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+    .core-eyebrow { color: var(--orange); }
+
+    /* Identity badge on each card showing "Founding Member" or "Core Member" */
+    .team-type-badge {
+      border-radius: 999px;
+      display: inline-flex;
+      font-size: 0.70rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      margin-top: 8px;
+      padding: 4px 11px;
+      text-transform: uppercase;
+    }
+    .team-type-badge.foundational {
+      background: rgba(13,33,69,0.07);
+      border: 1px solid rgba(13,33,69,0.16);
+      color: var(--navy);
+    }
+    .team-type-badge.core {
+      align-items: center;
+      background: rgba(232,119,34,0.09);
+      border: 1px solid rgba(232,119,34,0.26);
+      color: var(--orange);
+      gap: 5px;
+    }
+    .team-type-badge.core::before {
+      animation: corePulse 2.2s ease infinite;
+      background: var(--orange);
+      border-radius: 50%;
+      content: '';
+      display: inline-block;
+      flex-shrink: 0;
+      height: 6px;
+      width: 6px;
+    }
+    @keyframes corePulse {
+      0%, 100% { opacity: 1;    transform: scale(1);    }
+      50%       { opacity: 0.5; transform: scale(0.72); }
+    }
+
+    /* Foundational team grid — mirrors .team-grid exactly */
+    #foundational-team-container {
+      display: grid;
+      gap: 24px;
+      grid-template-columns: repeat(6, 1fr);
+      margin-top: 42px;
+    }
+    #foundational-team-container .team-card { grid-column: span 2; }
+    #foundational-team-container .team-card:nth-child(4) { grid-column: 2 / span 2; }
+    #foundational-team-container .team-card:nth-child(5) { grid-column: 4 / span 2; }
+
+    /* Centre .orange-rule when parent has text-align:center */
+    .container.text-center .orange-rule {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Responsive overrides for foundational grid */
+    @media (max-width: 920px) {
+      #foundational-team-container .team-card,
+      #foundational-team-container .team-card:nth-child(4),
+      #foundational-team-container .team-card:nth-child(5) { grid-column: span 3; }
+    }
+    @media (max-width: 680px) {
+      #foundational-team-container { grid-template-columns: 1fr; }
+      #foundational-team-container .team-card,
+      #foundational-team-container .team-card:nth-child(4),
+      #foundational-team-container .team-card:nth-child(5) { grid-column: auto; }
+    }
+  
 </style></head><body class="is-loading"><div class="page-loader" aria-label="Loading Penta Minds website" role="status"><div class="loader-logo" aria-hidden="true"><span class="brand-penta">Penta</span> <span class="brand-minds">Minds</span></div><div class="loader-progress" aria-hidden="true"><span></span></div></div><header class="site-header"><nav class="container nav-wrap" aria-label="Primary navigation"><a class="brand" href="#home" aria-label="Penta Minds home"><span class="brand-main"><span class="brand-penta">Penta</span> <span class="brand-minds">Minds</span></span><span class="brand-sub">Team Division</span></a><button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false"><span aria-hidden="true"></span></button><ul class="nav-links"><li><a class="nav-link active" href="#home">Home</a></li><li><a class="nav-link" href="#about">About</a></li><li><a class="nav-link" href="#leadership">Leadership</a></li><li><a class="nav-link" href="#departments">Departments</a></li><li><a class="nav-link" href="#members">Founding Team</a></li><li><a class="nav-link" href="#core-team">Core Team</a></li><li><a class="nav-link" href="#join">Join</a></li><li><a class="nav-link" href="#contact">Contact</a></li><li><a class="nav-link" href="#" onclick="redirectTo('https://pentaminds.in', 'Returning to Penta Minds...')">← Penta Minds</a></li></ul></nav></header><main><section class="hero" id="home"><canvas class="hero-network-canvas" aria-hidden="true"></canvas><div class="container hero-content reveal"><span class="eyebrow-badge">TEAM DIVISION</span><h1>The People Behind</h1><h2>Penta Minds</h2><p>A student-led research collective organised into divisions. Every member contributes to an ecosystem built for rigorous, accessible, and collaborative AI research.</p><div class="button-row"><a class="btn btn-orange" href="#members">Meet the Team</a><a class="btn btn-white-outline" href="#join">Join the Team</a><a class="btn btn-white-outline" href="#" onclick="redirectTo('https://pentaminds.in', 'Returning to Penta Minds...')">← Penta Minds</a></div></div></section><div class="orange-divider"></div><section class="stats-bar" aria-label="Team statistics"><div class="container stats-grid"><div class="stat reveal"><strong>5 Researchers</strong><span>Core Team</span></div><div class="stat reveal"><strong>2 States</strong><span>Operational Reach</span></div><div class="stat reveal"><strong>2026</strong><span>Founded</span></div></div></section><section class="section" id="about" style="background:white"><div class="container split"><div class="reveal"><h2 class="section-title">About the Team</h2><span class="orange-rule"></span></div><p class="lead-copy reveal">Penta Minds operates as a modular research team. Each member contributes specific domain knowledge and field capacity. The team is organised not by hierarchy of seniority, but by function: research leads, field contributors, and outreach associates working in parallel toward shared research outputs.</p></div></section>
 
 <section class="section" id="leadership"><div class="container text-center"><div class="reveal"><h2 class="section-title">Leadership</h2><span class="orange-rule"></span></div><div style="display:flex;justify-content:center;margin-top:42px"><article class="team-card reveal" data-member-id="vignesh-prakash"><span class="avatar" data-initials="VP"><img src=https://res.cloudinary.com/dn7sbid1f/image/upload/q_auto/f_auto/v1780910484/WhatsApp_Image_2026-06-08_at_2.38.44_PM_1_iwmzmd.jpg></span><h3>Vignesh Prakash</h3><span class="badge">Founding Member & Research Lead</span><p class="member-meta">Penta Minds · GPAI India Student Community</p><a class="linkedin" href="https://www.linkedin.com/in/vigneshprak" aria-label="Vignesh Prakash LinkedIn">in</a><div style="margin-top:14px"><a class="btn btn-orange" href="#" onclick="redirectTo('https://vignesh.pentaminds.in', 'Opening Founder Profile...')">View Profile</a></div><button class="avatar-reset" type="button" disabled>Reset photo</button></article></div></div></section>
