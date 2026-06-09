@@ -232,6 +232,28 @@
         grid-column: auto;
       }
     }
+
+  /* =====================================================
+   Team Card Layout v2
+   Role → Member Type → LinkedIn
+===================================================== */
+
+.member-stack{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  margin-top:14px;
+}
+
+.member-stack .badge,
+.member-stack .team-type-badge{
+  margin:0;
+}
+
+.member-stack .linkedin{
+  margin-top:2px;
+}
   
 </style></head><body class="is-loading"><div class="page-loader" aria-label="Loading Penta Minds website" role="status"><div class="loader-logo" aria-hidden="true"><span class="brand-penta">Penta</span> <span class="brand-minds">Minds</span></div><div class="loader-progress" aria-hidden="true"><span></span></div></div><header class="site-header"><nav class="container nav-wrap" aria-label="Primary navigation"><a class="brand" href="#home" aria-label="Penta Minds home"><span class="brand-main"><span class="brand-penta">Penta</span> <span class="brand-minds">Minds</span></span><span class="brand-sub">Team Division</span></a><button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false"><span aria-hidden="true"></span></button><ul class="nav-links"><li><a class="nav-link active" href="#home">Home</a></li><li><a class="nav-link" href="#about">About</a></li><li><a class="nav-link" href="#leadership">Leadership</a></li><li><a class="nav-link" href="#departments">Departments</a></li><li><a class="nav-link" href="#members">Founding Team</a></li><li><a class="nav-link" href="#core-team">Core Team</a></li><li><a class="nav-link" href="#join">Join</a></li><li><a class="nav-link" href="#contact">Contact</a></li><li><a class="nav-link" href="#" onclick="redirectTo('https://pentaminds.in', 'Returning to Penta Minds...')">← Penta Minds</a></li></ul></nav></header><main><section class="hero" id="home"><canvas class="hero-network-canvas" aria-hidden="true"></canvas><div class="container hero-content reveal"><span class="eyebrow-badge">TEAM DIVISION</span><h1>The People Behind</h1><h2>Penta Minds</h2><p>A student-led research collective organised into divisions. Every member contributes to an ecosystem built for rigorous, accessible, and collaborative AI research.</p><div class="button-row"><a class="btn btn-orange" href="#members">Meet the Team</a><a class="btn btn-white-outline" href="#join">Join the Team</a><a class="btn btn-white-outline" href="#" onclick="redirectTo('https://pentaminds.in', 'Returning to Penta Minds...')">← Penta Minds</a></div></div></section><div class="orange-divider"></div><section class="stats-bar" aria-label="Team statistics"><div class="container stats-grid"><div class="stat reveal"><strong>5 Researchers</strong><span>Core Team</span></div><div class="stat reveal"><strong>2 States</strong><span>Operational Reach</span></div><div class="stat reveal"><strong>2026</strong><span>Founded</span></div></div></section><section class="section" id="about" style="background:white"><div class="container split"><div class="reveal"><h2 class="section-title">About the Team</h2><span class="orange-rule"></span></div><p class="lead-copy reveal">Penta Minds operates as a modular research team. Each member contributes specific domain knowledge and field capacity. The team is organised not by hierarchy of seniority, but by function: research leads, field contributors, and outreach associates working in parallel toward shared research outputs.</p></div></section>
 
@@ -377,11 +399,24 @@
       if (member.is_associate) {
         el.className = "associate-card reveal";
         el.innerHTML = `
-          ${avatarInner}
-          <h3>${name}</h3>
-          <span class="badge">${role}</span><br>
-          ${linkedinBtn}
-        `;
+  ${avatarInner}
+
+  <h3>${name}</h3>
+
+  <div class="member-stack">
+
+    <span class="badge">
+      ${role}
+    </span>
+
+    <span class="team-type-badge foundational">
+      Associate
+    </span>
+
+    ${linkedinBtn}
+
+  </div>
+`;
       } else {
         el.className = "team-card reveal";
         el.dataset.memberId = member.member_slug;
@@ -399,12 +434,22 @@
           : "";
 
         el.innerHTML = `
-          ${avatarInner}
-          <h3>${name}</h3>
-          <span class="badge">${role}</span>
-          ${teamTypeBadgeHtml}
-          ${linkedinBtn}
-        `;
+  ${avatarInner}
+
+  <h3>${name}</h3>
+
+  <div class="member-stack">
+
+    <span class="badge">
+      ${role}
+    </span>
+
+    ${teamTypeBadgeHtml}
+
+    ${linkedinBtn}
+
+  </div>
+`;
       }
 
       return el;
