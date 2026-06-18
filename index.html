@@ -451,8 +451,12 @@ const loadTeamMembers = async () => {
     + 'text-align:center;padding:32px 0;">Team data temporarily unavailable. Please refresh.</p>';
 
   try {
-    const res     = await fetch(`${API_BASE}/team-members`);
-    const payload = await res.json();
+    const res = await fetch(
+  `${API_BASE}/team-members?t=${Date.now()}`,
+  {
+    cache: "no-store"
+  }
+);    const payload = await res.json();
     if (!res.ok || !payload.success) throw new Error(payload.error || `API ${res.status}`);
 
     const members = Array.isArray(payload.data) ? payload.data : [];
