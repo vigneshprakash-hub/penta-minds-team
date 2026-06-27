@@ -908,6 +908,60 @@
           opacity:1;
           transform:translateY(0)
         }
+
+      .menu-toggle {
+      align-items: center;
+      background: var(--navy);
+      border-radius: 8px;
+      display: none;
+      height: 44px;
+      justify-content: center;
+      width: 44px;
+    }
+
+    .menu-toggle span {
+      background: var(--white);
+      border-radius: 99px;
+      display: block;
+      height: 2px;
+      position: relative;
+      width: 22px;
+    }
+
+    .menu-toggle span::before,
+    .menu-toggle span::after {
+      background: var(--white);
+      border-radius: 99px;
+      content: "";
+      height: 2px;
+      left: 0;
+      position: absolute;
+      transition: transform 200ms ease, top 200ms ease;
+      width: 22px;
+    }
+
+    .menu-toggle span::before {
+      top: -7px;
+    }
+
+    .menu-toggle span::after {
+      top: 7px;
+    }
+
+    .menu-toggle.open span {
+      background: transparent;
+    }
+
+    .menu-toggle.open span::before {
+      top: 0;
+      transform: rotate(45deg);
+    }
+
+    .menu-toggle.open span::after {
+      top: 0;
+      transform: rotate(-45deg);
+    }
+      
         @media(max-width:920px) {
           
 
@@ -1447,7 +1501,113 @@
         }
         
   
+@media (max-width: 920px) {
+      .menu-toggle {
+        display: inline-flex;
+      }
 
+      .nav-links {
+        background: var(--white);
+        border-bottom: 1px solid var(--line);
+        box-shadow: 0 20px 30px rgba(13, 33, 69, 0.08);
+        display: grid;
+        gap: 4px;
+        left: 0;
+        opacity: 0;
+        padding: 12px 20px 20px;
+        pointer-events: none;
+        position: absolute;
+        right: 0;
+        top: 78px;
+        transform: translateY(-8px);
+        transition: opacity 180ms ease, transform 180ms ease;
+      }
+
+      .site-header.scrolled .nav-links {
+        background: var(--navy);
+        border-bottom-color: rgba(255, 255, 255, 0.08);
+      }
+
+      .nav-links.open {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+
+      .nav-link {
+        border-radius: 8px;
+        justify-content: center;
+        padding: 12px;
+      }
+
+      .split,
+      .toolkit-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cards-3,
+      .scope-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .team-card,
+      .team-card:nth-child(4),
+      .team-card:nth-child(5) {
+        grid-column: span 3;
+      }
+
+      .copyright,
+      .footer-grid {
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .container {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .section {
+        padding: 74px 0;
+      }
+
+      .hero {
+        min-height: 100vh;
+        padding-top: 110px;
+      }
+
+      .button-row {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .stats-grid,
+      .objectives-grid,
+      .module-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .team-card,
+      .team-card:nth-child(4),
+      .team-card:nth-child(5) {
+        grid-column: auto;
+      }
+
+      .footer-links {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+      }
+        }
+      
     </style>
   </head>
   <body class="is-loading">
@@ -1796,6 +1956,33 @@
       </div>
     </div>
 <script>
+  const menuToggle = document.querySelector(".menu-toggle");
+    const siteHeader = document.querySelector(".site-header");
+    const navLinks = document.querySelector(".nav-links");
+    const links = document.querySelectorAll(".nav-link");
+
+    const updateHeaderState = () => {
+      siteHeader.classList.toggle("scrolled", window.scrollY > 50);
+    };
+
+    updateHeaderState();
+    window.addEventListener("scroll", updateHeaderState, { passive: true });
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuToggle.classList.toggle("open", isOpen);
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
+    });
+
+    links.forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Open navigation menu");
+      });
+    });
   function redirectTo(url,label){
       document.getElementById('redirect-label').textContent=label||'Opening portal...';
       document.getElementById('redirect-overlay').classList.add('active');
