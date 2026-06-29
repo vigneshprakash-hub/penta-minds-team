@@ -40,18 +40,18 @@
     </script>
     <style>
       :root {
-          --navy:#0D2145;
-          --navy-dark:#0A1A35;
-          --orange:#E87722;
-          --light:#F8F9FC;
-          --white:#FFFFFF;
-          --text:#444444;
-          --muted:#707887;
-          --line:rgba(13,33,69,.12);
-          --shadow:0 18px 50px rgba(13,33,69,.12);
-          --radius:8px;
-          --heading:"Playfair Display",Georgia,serif;
-          --body:"Inter",Arial,sans-serif
+          --navy: #0D2145;
+          --navy-dark: #0A1A35;
+          --orange: #E87722;
+          --light: #F8F9FC;
+          --white: #FFFFFF;
+          --text: #444444;
+          --muted: #707887;
+          --line: rgba(13,33,69,0.12);
+          --shadow: 0 18px 50px rgba(13,33,69,0.12);
+          --radius: 8px;
+          --heading: "Playfair Display", Georgia, serif;
+          --body: "Inter", Arial, sans-serif;
         }
         * {
           box-sizing:border-box;
@@ -1607,8 +1607,197 @@
         grid-template-columns: repeat(2, 1fr);
       }
         }
-      
-    </style>
+
+        /* Main-site mobile responsiveness transplant.
+           Mapping: sub-site .hero-content is the functional equivalent of main-site .hero-layout on team, research, projects, and toolkit. */
+        @media (max-width: 920px) {
+          .menu-toggle {
+            display: inline-flex;
+          }
+
+          .nav-links {
+            position: absolute;
+            top: 78px;
+            left: 0;
+            right: 0;
+            background: var(--white);
+            padding: 12px 20px 20px;
+            gap: 4px;
+            display: grid;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-8px);
+            transition: opacity 180ms ease, transform 180ms ease;
+          }
+
+          .nav-links.open {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+          }
+
+          .site-header.scrolled .nav-links {
+            background: var(--navy);
+            border-bottom-color: rgba(255,255,255,0.08);
+          }
+
+          .nav-link {
+            border-radius: 8px;
+            justify-content: center;
+            padding: 12px;
+          }
+
+          .split,
+          .toolkit-grid,
+          .footer-grid,
+          .hero-layout,
+          .hero-content {
+            grid-template-columns: 1fr;
+          }
+
+          .cards-3,
+          .scope-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .team-card,
+          .team-card:nth-child(4),
+          .team-card:nth-child(5) {
+            grid-column: span 3;
+          }
+
+          .copyright,
+          .footer-grid {
+            text-align: center;
+          }
+
+          .hero-layout,
+          .hero-content {
+            gap: 40px;
+          }
+
+          .hero-logo-panel {
+            display: flex;
+            justify-content: center;
+          }
+
+          .hero-logo-frame {
+            max-width: 380px;
+          }
+
+          .hero-copy,
+          .hero-content {
+            text-align: center;
+          }
+
+          .hero p {
+            margin-left: auto;
+            margin-right: auto;
+          }
+
+          .button-row {
+            justify-content: center;
+          }
+
+          .ecosystem-branches {
+            grid-template-columns: 1fr;
+            border-top: 0;
+            margin-top: 28px;
+            padding-top: 0;
+          }
+
+          .ecosystem-branches::before {
+            display: none;
+          }
+
+          .nav-divider {
+            display: none;
+          }
+        }
+
+        @media (max-width: 720px) {
+          .projects-section-header {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        @media (max-width: 680px) {
+          .container {
+            width: min(100% - 28px, 1120px);
+          }
+
+          .section {
+            padding: 74px 0;
+          }
+
+          .hero {
+            min-height: 100vh;
+            padding-top: 110px;
+          }
+
+          .button-row,
+          .survey-section .button-row {
+            align-items: stretch;
+            flex-direction: column;
+          }
+
+          .btn {
+            width: 100%;
+          }
+
+          .stats-grid,
+          .objectives-grid,
+          .module-grid,
+          .team-grid,
+          .toolkit-grid,
+          .cards-3,
+          .scope-grid,
+          .split {
+            grid-template-columns: 1fr;
+          }
+
+          .team-card,
+          .team-card:nth-child(4),
+          .team-card:nth-child(5) {
+            grid-column: auto;
+          }
+
+          .footer-links {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+          }
+
+          .hero-logo-frame {
+            max-width: 280px;
+            border-radius: 12px;
+          }
+
+          .hero h1 {
+            font-size: clamp(2rem, 10vw, 3rem);
+          }
+
+          .project-body {
+            padding: 22px 18px;
+          }
+
+          .project-card-header {
+            padding: 24px 18px;
+          }
+
+          .project-meta-grid {
+            grid-template-columns: 1fr 1fr;
+          }
+
+          .section-portal-cta-inner {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+
+          .section-portal-cta-inner .btn {
+            width: 100%;
+          }
+        }
+</style>
   </head>
   <body class="is-loading">
     <div class="page-loader" aria-label="Loading Penta Minds website" role="status">
@@ -1956,34 +2145,7 @@
       </div>
     </div>
 <script>
-  const menuToggle = document.querySelector(".menu-toggle");
-    const siteHeader = document.querySelector(".site-header");
-    const navLinks = document.querySelector(".nav-links");
-    const links = document.querySelectorAll(".nav-link");
-
-    const updateHeaderState = () => {
-      siteHeader.classList.toggle("scrolled", window.scrollY > 50);
-    };
-
-    updateHeaderState();
-    window.addEventListener("scroll", updateHeaderState, { passive: true });
-
-    menuToggle.addEventListener("click", () => {
-      const isOpen = navLinks.classList.toggle("open");
-      menuToggle.classList.toggle("open", isOpen);
-      menuToggle.setAttribute("aria-expanded", String(isOpen));
-      menuToggle.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
-    });
-
-    links.forEach((link) => {
-      link.addEventListener("click", () => {
-        navLinks.classList.remove("open");
-        menuToggle.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.setAttribute("aria-label", "Open navigation menu");
-      });
-    });
-  function redirectTo(url,label){
+function redirectTo(url,label){
       document.getElementById('redirect-label').textContent=label||'Opening portal...';
       document.getElementById('redirect-overlay').classList.add('active');
       setTimeout(()=>{
@@ -2409,5 +2571,35 @@ const loadTeamMembers = async () => {
 
 
 </script>
+  
+    <script>
+      {
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        if (menuToggle && navLinks) {
+          menuToggle.addEventListener('click', () => {
+            const isOpen = menuToggle.classList.toggle('open');
+            navLinks.classList.toggle('open', isOpen);
+            menuToggle.setAttribute('aria-expanded', String(isOpen));
+          });
+          // Close on nav link click
+          navLinks.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+              menuToggle.classList.remove('open');
+              navLinks.classList.remove('open');
+              menuToggle.setAttribute('aria-expanded', 'false');
+            });
+          });
+        }
+
+        const header = document.querySelector('.site-header');
+        if (header) {
+          window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 40);
+          }, { passive: true });
+        }
+      }
+    </script>
+
   </body>
 </html>
